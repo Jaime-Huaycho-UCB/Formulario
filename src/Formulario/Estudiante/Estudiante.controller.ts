@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Post, Query, Res } from "@nestjs/common";
 import { EstudianteService } from "./Estudiante.service";
 import { Response } from "express";
+import { ApiResponse } from "@nestjs/swagger";
+import { obtenerEstudiantesDto } from "./Estudiante.dto";
 
 @Controller('estudiante')
 export class EstudianteController {
@@ -9,6 +11,11 @@ export class EstudianteController {
     ){}
 
     @Get('/obtener')
+    @ApiResponse({
+        status: 200,
+        description: 'Estudiantes registrados',
+        type: obtenerEstudiantesDto
+    })
     async obtenerEstudiantes(
         @Query('ci') ci:string,
         @Query('idCarrera') idCarrera,
