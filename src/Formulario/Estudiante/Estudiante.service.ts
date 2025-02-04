@@ -36,6 +36,18 @@ export class EstudianteService {
         }
     }
 
+    async obtenerEstudiantePorId(id: number) {
+        try {
+            const estudiante = await this.estudianteRepository.findOne({
+                where: { id },
+                relations: { carrera: true, colegio: true }
+            });
+            return estudiante || null;
+        } catch (error) {
+            return null;
+        }
+    }
+
     async registrarEstudiante(data){
         try {
             const {ci,nombres,apellidos,anioGraduacion,idCarrera,idColegio} = data;
